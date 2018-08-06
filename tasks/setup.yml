@@ -1,0 +1,24 @@
+---
+
+- name: Ensure source dir exists
+  file: 
+    path: "{{ src_dir }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: Clone repo to the source dir
+  git:
+    repo: 'https://github.com/Netflix/security_monkey.git'
+    dest: "{{ src_dir }}"
+
+- name: Run the secmon_setup
+  shell: 
+    args: secmon_setup.sh
+
+- name: Get static files
+  unarchive: 
+    src: "{{ static_url }}"
+    dest: "{{ src_dir }}/security_monkey/"
+  

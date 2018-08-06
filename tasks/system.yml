@@ -1,0 +1,38 @@
+---
+
+- name: Setup hostname
+  hostname: 
+    name: "{{ fqdn }}"
+
+- name: Create security monkey log dir
+  file: 
+    path: "{{ secmon_log_path }}"
+    owner: root
+    group: www-data
+    mode: 0755
+
+- name: Create dir for www
+  file: 
+    path: /var/www
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+- name: Install packages
+  apt: 
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - python-pip
+    - python-dev
+    - postgresql
+    - postgresql-contrib
+    - libpq-dev
+    - postgresql-client
+    - postgresql-client-common
+    - nginx
+    - supervisor
+    - libffi-dev
+    - gcc
+    - python-virtualenv
+    - redis-server

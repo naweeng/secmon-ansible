@@ -1,0 +1,11 @@
+---
+
+src_dir: '/usr/local/src'
+fqdn: 'dummy.com'
+secmon_log_path: '/var/log/security_monkey'
+db:
+  name: 'secmon'
+  user: 'securitymonkeyuser'
+  password: 'dummy123'
+  schema: 'secmon'
+static_url: "https://github.com/Netflix/security_monkey/releases/download/1.1.3/static.tar.gz"

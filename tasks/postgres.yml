@@ -1,0 +1,24 @@
+---
+
+- name: Create db
+  postgresql_db:
+    name: "{{ db.name }}"
+
+- name: Create User
+  postgresql_user:
+    db: "{{ db.name }}"
+    name: "{{ db.user }}"
+    password: "{{ db.password }}"
+    state: present
+
+- name: Create Schema
+  postgresql_schema:
+    name: "{{ db.schema }}"
+
+- name: Grant permissions
+  postgresql_privs:
+    database: "{{ db.name }}"
+    state: present
+    privs: USAGE,CREATE
+    schema: "{{ db.schema }}"
+
