@@ -21,4 +21,29 @@
   unarchive: 
     src: "{{ static_url }}"
     dest: "{{ src_dir }}/security_monkey/"
-  
+    group: www-data
+
+- name: Update config files
+  lineinfile: 
+    path: "{{ src_dir }}/security_monkey/env-config/config.py"
+    regexp: '^SQLALCHEMY_DATABASE_URI ='
+    line: "SQLALCHEMY_DATABASE_URI = 'postgresql://{{db.user}}:{{ db.password }}@localhost:5432/secmonkey'"
+  tags:
+    - sql_uri
+
+- name: Update config files
+  lineinfile: 
+    path: "{{ src_dir }}/security_monkey/env-config/config.py"
+    regexp: '^FQDN ='
+    line: "FQDN = '{{ fqdn }}'"
+  tags:
+    - fqdn
+
+- name: Update config files
+  lineinfile: 
+    path: "{{ src_dir }}/security_monkey/env-config/config.py"
+    regexp: '^MAIL_DEFAULT_SENDER ='
+    line: "MAIL_DEFAULT_SENDER = '{{ mail_sender }}'"
+  tags:
+    - mail_sender
+

@@ -2,6 +2,7 @@
 
 src_dir: '/usr/local/src'
 fqdn: 'dummy.com'
+mail_sender: 'abcd.com'
 secmon_log_path: '/var/log/security_monkey'
 db:
   name: 'secmon'

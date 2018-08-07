@@ -1,0 +1,21 @@
+---
+
+- name: Delete default file
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Copy config file to sites-available
+  copy: 
+    src: "{{ src_dir }}/security_monkey/nginx/security_monkey.conf"
+    dest: "/etc/nginx/sites-available/security_monkey.conf"
+    remote_src: yes
+  notify: 
+    - nginx_restart
+
+- name: Symlink conf file
+  file:
+    src: "/etc/nginx/sites-enabled/security_monkey.conf"
+    dest: "/etc/nginx/sites-available/security_monkey.conf"
+    state: link
+
